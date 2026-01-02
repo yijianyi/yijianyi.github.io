@@ -1,0 +1,357 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>CPP控制程序流程(下) | 一减一</title><meta name="author" content="一减一"><meta name="copyright" content="一减一"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="这一节来介绍C++中的循环语句。假设你要打印100次&quot;Hello World&quot;，按照前面的方法，就是写100次cout &lt;&lt; &quot;Hello World&quot; &lt;&lt; endl;，这种操作费时费力，这时候就可以使用循环，它可以用几行代码完成重复性工作，让代码更简洁。 goto goto语句是C++中最原始的控制流语句，现在的编程中几乎很难看到">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CPP控制程序流程(下)">
+<meta property="og:url" content="https://yijianyi.github.io/2026/01/02/CPP%E6%8E%A7%E5%88%B6%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B-%E4%B8%8B/index.html">
+<meta property="og:site_name" content="一减一">
+<meta property="og:description" content="这一节来介绍C++中的循环语句。假设你要打印100次&quot;Hello World&quot;，按照前面的方法，就是写100次cout &lt;&lt; &quot;Hello World&quot; &lt;&lt; endl;，这种操作费时费力，这时候就可以使用循环，它可以用几行代码完成重复性工作，让代码更简洁。 goto goto语句是C++中最原始的控制流语句，现在的编程中几乎很难看到">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yijianyi.github.io/icon/fufu.jpg">
+<meta property="article:published_time" content="2026-01-02T09:23:30.000Z">
+<meta property="article:modified_time" content="2026-01-02T12:55:49.570Z">
+<meta property="article:author" content="一减一">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yijianyi.github.io/icon/fufu.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CPP控制程序流程(下)",
+  "url": "https://yijianyi.github.io/2026/01/02/CPP%E6%8E%A7%E5%88%B6%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B-%E4%B8%8B/",
+  "image": "https://yijianyi.github.io/icon/fufu.jpg",
+  "datePublished": "2026-01-02T09:23:30.000Z",
+  "dateModified": "2026-01-02T12:55:49.570Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "一减一",
+      "url": "https://yijianyi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/icon/035-innovation.png"><link rel="canonical" href="https://yijianyi.github.io/2026/01/02/CPP%E6%8E%A7%E5%88%B6%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B-%E4%B8%8B/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CPP控制程序流程(下)',
+  isHighlightShrink: undefined,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/icon/fufu.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/icon/background.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/icon/035-innovation.png" alt="Logo"><span class="site-name">一减一</span></a><a class="nav-page-title" href="/"><span class="site-name">CPP控制程序流程(下)</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">CPP控制程序流程(下)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-01-02T09:23:30.000Z" title="发表于 2026-01-02 17:23:30">2026-01-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-02T12:55:49.570Z" title="更新于 2026-01-02 20:55:49">2026-01-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/">C++</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>这一节来介绍C++中的循环语句。假设你要打印100次&quot;Hello World&quot;，按照前面的方法，就是写100次<code>cout &lt;&lt; &quot;Hello World&quot; &lt;&lt; endl;</code>，这种操作费时费力，这时候就可以使用循环，它可以用几行代码完成重复性工作，让代码更简洁。</p>
+<h1>goto</h1>
+<p>goto语句是C++中最原始的控制流语句，现在的编程中几乎很难看到它的身影，也不推荐在程序中使用它，但是还是作为了解。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> count = <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">start_loop:  <span class="comment">// 这是一个标签</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;当前计数: &quot;</span> &lt;&lt; count &lt;&lt; endl;</span><br><span class="line">    count++;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (count &lt;= <span class="number">5</span>) &#123;</span><br><span class="line">        <span class="keyword">goto</span> start_loop;  <span class="comment">// 跳转回标签处</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;循环结束！&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到goto的用法就是跳转到标签处，循环只是它的一个用法，也可以用来跳过某些语句。</p>
+<p>现在的程序中，只有在一些特殊情况下需要跳出多层嵌套循环时才有可能使用。</p>
+<h1>while循环</h1>
+<p><code>while</code>循环适合用在不确定循环次数，但是知道循环继续的条件的情况下，它的特点是先判断，后执行。基本语法是</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (条件表达式) &#123;</span><br><span class="line">    <span class="comment">// 循环体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面是一个求和的示例代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 计算1到10的和</span></span><br><span class="line">    <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (i &lt;= <span class="number">10</span>) &#123;</span><br><span class="line">        sum += i;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;加上 &quot;</span> &lt;&lt; i &lt;&lt; <span class="string">&quot;，当前和为: &quot;</span> &lt;&lt; sum &lt;&lt; endl;</span><br><span class="line">        i++;  <span class="comment">// 别忘了递增，否则会死循环！</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;1到10的总和是: &quot;</span> &lt;&lt; sum &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在代码中，<code>while</code>会先判断后面的表达式是否为真(<code>true</code>)，为真就会进入循环体，且每运行完一次循环体，<code>while</code>又会在判断一下表达式的值，直到表达式的值为假(<code>false</code>)，就不再执行循环体。</p>
+<blockquote>
+<p>在编写循环体时，要确保条件可以变为<code>false</code>。</p>
+</blockquote>
+<h1>do…while</h1>
+<p><code>do...while</code>与<code>while</code>循环类似，但是它的特点是先执行，后循环。这也就代表着循环体至少会被执行一次。基本语法是</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    <span class="comment">// 循环体</span></span><br><span class="line">&#125; <span class="keyword">while</span> (条件表达式);</span><br></pre></td></tr></table></figure>
+<p>下面是一个模拟ATM的示例代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">char</span> choice;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;===== 菜单 =====&quot;</span> &lt;&lt; endl;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;1. 查看余额&quot;</span> &lt;&lt; endl;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;2. 转账&quot;</span> &lt;&lt; endl;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;3. 退出&quot;</span> &lt;&lt; endl;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;请选择 (1-3): &quot;</span>;</span><br><span class="line">        cin &gt;&gt; choice;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">switch</span>(choice) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;1&#x27;</span>:</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;您的余额是: $1000.00&quot;</span> &lt;&lt; endl;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;2&#x27;</span>:</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;转账功能暂未开放&quot;</span> &lt;&lt; endl;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;3&#x27;</span>:</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;感谢使用，再见！&quot;</span> &lt;&lt; endl;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;无效选择，请重新输入！&quot;</span> &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125; <span class="keyword">while</span> (choice != <span class="string">&#x27;3&#x27;</span>);  <span class="comment">// 当用户选择3时退出循环</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，无论如何，ATM都要先执行一次循环体，然后直到用户选择3时，程序才能退出。由于无论如何都要先执行一次循环体，因此适合使用<code>do...while</code></p>
+<blockquote>
+<p>适合在用户交互系统使用</p>
+</blockquote>
+<h1>for</h1>
+<p>for循环是C++中最常用的，功能最强大的循环。它将<strong>初始化</strong>、<strong>条件判断</strong>和<strong>迭代更新</strong>三个部分集中在一个语句中，让代码更加清晰。基本语法是</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (初始化; 条件表达式; 迭代更新) &#123;</span><br><span class="line">    <span class="comment">// 循环体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面是for循环的几种常见的用法的示例代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 示例1：简单的计数循环</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;=== 乘法表 ===&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">9</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= <span class="number">9</span>; j++) &#123;</span><br><span class="line">            cout &lt;&lt; i &lt;&lt; <span class="string">&quot;*&quot;</span> &lt;&lt; j &lt;&lt; <span class="string">&quot;=&quot;</span> &lt;&lt; i*j &lt;&lt; <span class="string">&quot;\t&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 示例2：遍历容器</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;\n=== 遍历vector ===&quot;</span> &lt;&lt; endl;</span><br><span class="line">    vector&lt;string&gt; fruits = &#123;<span class="string">&quot;苹果&quot;</span>, <span class="string">&quot;香蕉&quot;</span>, <span class="string">&quot;橙子&quot;</span>, <span class="string">&quot;葡萄&quot;</span>&#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 传统for循环</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; fruits.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;索引 &quot;</span> &lt;&lt; i &lt;&lt; <span class="string">&quot;: &quot;</span> &lt;&lt; fruits[i] &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// C++11及以后的范围for循环（更简洁！）</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;\n使用范围for循环:&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; fruit : fruits) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;水果: &quot;</span> &lt;&lt; fruit &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面的示例可以看出，在需要固定的循环次数时，优先选择for循环</p>
+<blockquote>
+<ul class="lvl-1">
+<li class="lvl-2">
+<p>在for循环中定义的变量(<code>int i</code>)只在循环内部生效</p>
+</li>
+<li class="lvl-2">
+<p>for循环中，括号里的三个部分都可以为空，但是分号不能省略，也就是<code>for(;;)</code>，它的作用相当于<code>while(true)</code>，是个死循环</p>
+</li>
+<li class="lvl-2">
+<p>示例中的最后一种方法是遍历容器的最佳实践</p>
+</li>
+<li class="lvl-2">
+<p>在遍历容器时，不要在循环体内修改容器的大小，这可能导致未定义行为(容器后面会讲)</p>
+</li>
+</ul>
+</blockquote>
+<h1>循环控制语句</h1>
+<h2 id="break">break</h2>
+<p>立即终止当前循环，跳出循环体。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;寻找第一个能被7整除的数:&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">100</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (i % <span class="number">7</span> == <span class="number">0</span>) &#123;</span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;找到: &quot;</span> &lt;&lt; i &lt;&lt; endl;</span><br><span class="line">            <span class="keyword">break</span>;  <span class="comment">// 找到后立即退出循环</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="continue">continue</h2>
+<p>跳过当前迭代，直接进入下一次循环。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;打印1-20之间的奇数:&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">20</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (i % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;  <span class="comment">// 跳过偶数</span></span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; i &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1>最佳实践</h1>
+<ol>
+<li class="lvl-3">
+<p>优先使用for循环</p>
+</li>
+<li class="lvl-3">
+<p>循环的嵌套最好不要超过3层</p>
+</li>
+<li class="lvl-3">
+<p>操作数组时务必确保不会发生数组越界</p>
+</li>
+<li class="lvl-3">
+<p>由于浮点数存在精度问题，最好不要在循环的表达式中比较浮点数，如果一定要比较，最好是判断浮点数是否在目标的极小的范围内(比如判断是a否等于0.3时可以这样写<code>a&gt;=0.29 &amp;&amp; a&lt;=0.31</code>)</p>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yijianyi.github.io">一减一</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yijianyi.github.io/2026/01/02/CPP%E6%8E%A7%E5%88%B6%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B-%E4%B8%8B/">https://yijianyi.github.io/2026/01/02/CPP%E6%8E%A7%E5%88%B6%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B-%E4%B8%8B/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a> 许可协议。转载请注明来源 <a href="https://yijianyi.github.io" target="_blank">一减一</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C/">C++</a></div><div class="post-share"><div class="social-share" data-image="/icon/fufu.jpg" data-sites="wechat,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/12/26/CPP%E5%8F%98%E9%87%8F%E4%B8%8E%E5%B8%B8%E9%87%8F/" title="CPP变量与常量"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-26</div><div class="info-item-2">CPP变量与常量</div></div><div class="info-2"><div class="info-item-1">变量 变量是在代码中可以被改变的数据，在使用变量前，要先规定变量的类型和名称，如果规定是整数型，那它就不能用来存储小数。变量类型向编译器指出了变量可存储的数据的性质，编译器将为变量预留必要的空间。 内存 在计算机中，处理器负责执行应用程序，在此过程中，它会从 RAM（随机存取存储器）中读取程序的二进制指令及相关数据。RAM 可以看作是一系列连续的存储单元（“格子”），每个单元可以存放一个固定大小的数据项。需要注意的是，一个存储单元只能容纳一份数据，但同一份数据可以被复制到多个单元中。 举个例子：假设你有一整套螺丝刀（我们将其视为一个完整的数据结构），但每个格子的容量只能容纳一把螺丝刀。这时，你需要将这套螺丝刀拆开，将每把螺丝刀依次放入相邻的格子中。这样一来，当你需要使用整套工具时，就可以快速按顺序取出这些螺丝刀，并重新组合成完整的工具集。 这样的类比有助于理解：在内存中，复杂的数据（如数组、结构体等）通常是以连续或关联的方式分布在多个内存单元中的，以便处理器高效访问和处理。 声明变量 在C++中，声明变量的基本格式是 VariableType VariableName，例如 in...</div></div></div></a><a class="pagination-related" href="/2025/12/31/CPP%E6%95%B0%E7%BB%84/" title="CPP数组与字符串"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-31</div><div class="info-item-2">CPP数组与字符串</div></div><div class="info-2"><div class="info-item-1">静态数组 如果有5个类型相同，意义相近的变量，你可以用下列代码进行声明。 1int firstNum, secondNum, thirdNum, fourthNum, fifthNum; 但是如果是100个变量，这样写的效率就极低了，此时我们可以使用数组对这些变量进行存储。 声明和初始化 数组的声明语法与变量类似，区别只是多了个[]用来表示要存储多少个变量。 12345678910111213141516#include &lt;iostream&gt;using namespace std;int main()&#123;    //声明一个能存储5个整数类型变量的数组    int array1[5];    //声明并初始化数组    char array2[5] = &#123;&#x27;a&#x27;, &#x27;b&#x27;, &#x27;e&#x27;, &#x27;c&#x27;, &#x27;z&#x27;&#125;;    //声明并初始化数组    char array3[] = &#123;&#x27;a&#x27;, &#x27;b&#x27;,...</div></div></div></a><a class="pagination-related" href="/2025/12/25/%E7%A8%8B%E5%BA%8F%E7%BB%84%E6%88%90/" title="C++程序组成"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-25</div><div class="info-item-2">C++程序组成</div></div><div class="info-2"><div class="info-item-1">C++程序组成 C++ 的语法与 C 语言高度相似，最初确实是作为 C 语言的扩展而诞生的。然而，随着时间的发展，C++ 已演变为一门独立且功能丰富的编程语言。作为一门支持面向对象编程（OOP）的语言，C++ 引入了许多 C 语言所不具备的特性，其中最具代表性的是面向对象的三大核心特征：封装、继承和多态。此外，C++ 的标准库也与 C 语言有显著不同，例如提供了标准模板库（STL）、更安全的字符串和容器类型等。因此，即便已经掌握了 C 语言，也不应轻视 C++ 的复杂性和深度，而应将其视为一门全新的语言来系统学习。 C++程序基本构成 以下面这个简单的C++程序为例 123456789101112//头文件#include &lt;iostream&gt;//主函数int main()&#123;    //功能    std::cout &lt;&lt; &quot;Hello World&quot; &lt;&lt; std::endl;    std::cout &lt;&lt; &quot;你好，世界&quot; &lt;&lt; std::endl;    //返回值 ...</div></div></div></a><a class="pagination-related" href="/2025/12/25/%E7%8E%AF%E5%A2%83%E8%AE%BE%E7%BD%AE/" title="环境设置"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-25</div><div class="info-item-2">环境设置</div></div><div class="info-2"><div class="info-item-1">C++学习环境配置 Visual Studio安装 想要系统学习C++，Visual Studio是一个一定会被用到的软件，它是由微软（Microsoft）开发的一款功能强大、高度集成的集成开发环境（Integrated Development Environment, IDE），广泛用于 Windows 平台上的应用程序开发。它不仅支持多种编程语言（如 C#、Python、JavaScript 等），还为 C 和 C++ 开发者提供了全面的工具链支持，包括智能代码编辑、调试器、性能分析器、版本控制集成以及项目管理功能。 下载 点击下载链接即可进入Visual Studio的官方下载界面  点击社区版的免费下载(红框部分)，即可下载Visual Studio下载器，这个下载器不大，很快就可以下载下来。下载成功后，双击下载下来的.exe文件，就会进入下面的界面    可以根据需要选择模块来进行下载，学习C++的不知道选什么的话，可以将图中的三个选上。然后选择安装位置，将安装路径改为C盘以外的盘，因为这个软件本身占用空间较大，放在C盘可能会使电脑卡顿，另一方面，如果电脑坏了，放在非系...</div></div></div></a><a class="pagination-related" href="/2026/01/02/CPP%E6%8E%A7%E5%88%B6%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B-%E4%B8%8A/" title="CPP控制程序流程(上)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-02</div><div class="info-item-2">CPP控制程序流程(上)</div></div><div class="info-2"><div class="info-item-1">在前面的程序中，我们总是一套逻辑从头执行到尾。但是这样的程序非常的死板，如果想和用户交互，根据用户的行为来决定执行哪些语句又该怎么办？ 三元运算符 上一节说到的三元运算符? :是一种选择。这个运算符可以根据用户输入的内容和判断语句来选择执行哪个表达式。 但是这样的方式只能执行一个表达式。大部分情况下，我们要根据不同的输入来执行一系列操作，很明显这个时候三元运算符就不适合使用了。 if…else C++使用if...else帮助程序员解决这个问题。 if…else基本结构 下面是一个最简单的if...else结构。 123456789101112131415161718192021222324#include &lt;iostream&gt;using namespace std;int main()&#123;    //实现一个加减法计算器    double x=0, y=0;    char op;    double res = 0;    cout &lt;&lt; &quot;请输入计算式(用空格隔开，只能算加减):&quot;;    cin &gt;&gt; x ...</div></div></div></a><a class="pagination-related" href="/2026/01/01/CPP%E8%BF%90%E7%AE%97%E7%AC%A6/" title="CPP运算符"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-01</div><div class="info-item-2">CPP运算符</div></div><div class="info-2"><div class="info-item-1">元 首先介绍元，元表示操作的个数，也就是一个运算符需要几个操作数才能完成运算。例如赋值符号=,它的用法是a=3，在这个过程中，a是它的一个操作数，3也是它的操作数，所以=是二元运算符。再比如! flag，其中的!也是一个运算符(下面会讲)，但是它只有一个操作数’flag’，因此它是一元运算符。 左值和右值 在C++中，左值一般是指向一个内存单元的，它一般可修改，可寻址，可持久。 右值一般是临时对象，它一般不可寻址，短暂存在，不可修改。 1a = 7; 在上面这个语句中，a指向内存中的一个地址，且可以长期存在，因此它是左值；而7则是一个临时的值，这个语句结束后就会被销毁，因此它是右值。 示例代码 在前面的章节中，已经简单的介绍过了几个运算符，这一节是更详细的展开。 这一部分将围绕C++中的运算符展开，这里会先给出本节的完整的示例代码，方便复制粘贴。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/icon/fufu.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">一减一</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/yijianyi"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/yijianyi" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">goto</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">while循环</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">do…while</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">for</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">循环控制语句</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#break"><span class="toc-number">5.1.</span> <span class="toc-text">break</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#continue"><span class="toc-number">5.2.</span> <span class="toc-text">continue</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">6.</span> <span class="toc-text">最佳实践</span></a></li></ol></div></div><div class="card-widget card-post-series"><div class="item-headline"><i class="fa-solid fa-layer-group"></i><span>系列文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/02/CPP%E6%8E%A7%E5%88%B6%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B-%E4%B8%8B/" title="CPP控制程序流程(下)">CPP控制程序流程(下)</a><time datetime="2026-01-02T09:23:30.000Z" title="发表于 2026-01-02 17:23:30">2026-01-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/02/CPP%E6%8E%A7%E5%88%B6%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B-%E4%B8%8A/" title="CPP控制程序流程(上)">CPP控制程序流程(上)</a><time datetime="2026-01-02T02:08:47.000Z" title="发表于 2026-01-02 10:08:47">2026-01-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/01/CPP%E8%BF%90%E7%AE%97%E7%AC%A6/" title="CPP运算符">CPP运算符</a><time datetime="2026-01-01T10:02:28.000Z" title="发表于 2026-01-01 18:02:28">2026-01-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/31/CPP%E6%95%B0%E7%BB%84/" title="CPP数组与字符串">CPP数组与字符串</a><time datetime="2025-12-31T02:47:47.000Z" title="发表于 2025-12-31 10:47:47">2025-12-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/26/CPP%E5%8F%98%E9%87%8F%E4%B8%8E%E5%B8%B8%E9%87%8F/" title="CPP变量与常量">CPP变量与常量</a><time datetime="2025-12-26T11:03:52.000Z" title="发表于 2025-12-26 19:03:52">2025-12-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/25/%E7%A8%8B%E5%BA%8F%E7%BB%84%E6%88%90/" title="C++程序组成">C++程序组成</a><time datetime="2025-12-25T03:48:06.000Z" title="发表于 2025-12-25 11:48:06">2025-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/25/%E7%8E%AF%E5%A2%83%E8%AE%BE%E7%BD%AE/" title="环境设置">环境设置</a><time datetime="2025-12-25T01:35:29.000Z" title="发表于 2025-12-25 09:35:29">2025-12-25</time></div></div></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/02/CPP%E6%8E%A7%E5%88%B6%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B-%E4%B8%8B/" title="CPP控制程序流程(下)">CPP控制程序流程(下)</a><time datetime="2026-01-02T09:23:30.000Z" title="发表于 2026-01-02 17:23:30">2026-01-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/02/CPP%E6%8E%A7%E5%88%B6%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B-%E4%B8%8A/" title="CPP控制程序流程(上)">CPP控制程序流程(上)</a><time datetime="2026-01-02T02:08:47.000Z" title="发表于 2026-01-02 10:08:47">2026-01-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/01/CPP%E8%BF%90%E7%AE%97%E7%AC%A6/" title="CPP运算符">CPP运算符</a><time datetime="2026-01-01T10:02:28.000Z" title="发表于 2026-01-01 18:02:28">2026-01-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/31/CPP%E6%95%B0%E7%BB%84/" title="CPP数组与字符串">CPP数组与字符串</a><time datetime="2025-12-31T02:47:47.000Z" title="发表于 2025-12-31 10:47:47">2025-12-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/26/CPP%E5%8F%98%E9%87%8F%E4%B8%8E%E5%B8%B8%E9%87%8F/" title="CPP变量与常量">CPP变量与常量</a><time datetime="2025-12-26T11:03:52.000Z" title="发表于 2025-12-26 19:03:52">2025-12-26</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By 一减一</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.2"></script><script src="/js/main.js?v=5.5.2"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script async data-pjax src="/"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.2"></script></div></div></body></html>
